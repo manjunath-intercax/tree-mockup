@@ -1,13 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
-import BarTreeView from './Components/TreeMockup'
+import BarTreeView from './features/tree-mock-up/TreeMockup'
+import { Counter } from './features/counter/Counter'
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <BarTreeView />
+        <BarTreeView />
+        <Counter />
       </header>
     </div>
   );
