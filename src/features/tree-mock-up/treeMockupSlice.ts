@@ -5,8 +5,12 @@ import { Repository } from './models';
 
 
 const octokit = new Octokit({
-    auth: ''
+    auth: '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'
 })
+
+export const generateRandomColor = (): string => {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+}
 
 export interface RepositoriesState {
     repositories: Array<Repository>;

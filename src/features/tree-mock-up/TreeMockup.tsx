@@ -11,7 +11,7 @@ import TreeItem, {
 import clsx from 'clsx';
 import Typography from '@mui/material/Typography';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { fetchRepositoriesAsync, selectRepositories } from './treeMockupSlice';
+import { fetchRepositoriesAsync, generateRandomColor, selectRepositories } from './treeMockupSlice';
 import styles from './treeMockup.module.css'
 
 const CustomContentRoot = styled('div')(({ theme }) => ({
@@ -141,13 +141,25 @@ const TreeMockup = () => {
       defaultExpandIcon={<ChevronRightIcon />}
       sx={{ height: 240, flexGrow: 1, maxWidth: 400, position: 'relative' }}
     >
-      <CustomTreeItem nodeId='userTreeMockup' label='GitHub Server (api.github.com)'>
+      <CustomTreeItem nodeId='userTreeMockup' label={<div>
+        <div className={styles.pill} style={{ backgroundColor: '#fff' }}></div>
+        GitHub Server (api.github.com)
+      </div>}>
         {repositories?.length > 0 && repositories?.map(repository => {
-          return (repository ? <CustomTreeItem nodeId={repository?.node_id} label={repository?.name}>
+          return (repository ? <CustomTreeItem nodeId={repository?.node_id} label={<div>
+            <div className={styles.pill} style={{ backgroundColor: generateRandomColor() }}></div>
+            Repository:- {repository?.name}
+          </div>}>
             {repository && repository?.pullRequests && repository?.pullRequests?.length > 0 ? repository?.pullRequests?.map(pullRequest => {
-              return (<CustomTreeItem nodeId={pullRequest?.node_id} label={pullRequest?.title}>
+              return (<CustomTreeItem nodeId={pullRequest?.node_id} label={<div>
+                <div className={styles.pill} style={{ backgroundColor: generateRandomColor() }}></div>
+                Pull Request:- {pullRequest?.title}
+              </div>}>
                 {pullRequest && pullRequest?.files && pullRequest?.files?.length > 0 ? pullRequest?.files?.map(diffEntry => {
-                  return (<CustomTreeItem nodeId={diffEntry?.sha} label={diffEntry?.filename}></CustomTreeItem>)
+                  return (<CustomTreeItem nodeId={diffEntry?.sha} label={<div>
+                    <div className={styles.pill} style={{ backgroundColor: generateRandomColor() }}></div>
+                    {diffEntry?.filename}
+                  </div>}></CustomTreeItem>)
                 }) : ''}
               </CustomTreeItem>)
             }) : ''}
