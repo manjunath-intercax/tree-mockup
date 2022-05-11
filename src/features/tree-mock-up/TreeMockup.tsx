@@ -10,17 +10,20 @@ import TreeItem, {
 } from '@mui/lab/TreeItem';
 import clsx from 'clsx';
 import Typography from '@mui/material/Typography';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { fetchRepositoriesAsync, selectRepositories } from './treeMockupSlice';
+import styles from './treeMockup.module.css'
 
 const CustomContentRoot = styled('div')(({ theme }) => ({
   WebkitTapHighlightColor: 'transparent',
   '&:hover, &.Mui-disabled, &.Mui-focused, &.Mui-selected, &.Mui-selected.Mui-focused, &.Mui-selected:hover':
-    {
-      backgroundColor: 'transparent',
-    },
+  {
+    backgroundColor: 'transparent',
+  },
   [`& .MuiTreeItem-contentBar`]: {
     position: 'absolute',
     width: '100%',
-    height: 24,
+    height: 30,
     left: 0,
     '&:hover &': {
       backgroundColor: theme.palette.action.hover,
@@ -113,7 +116,7 @@ const CustomContent = React.forwardRef(function CustomContent(
     >
       <div className="MuiTreeItem-contentBar" />
       <div className={classes.iconContainer}>{icon}</div>
-      <Typography component="div" className={classes.label}>
+      <Typography component="div" className={`${classes.label} ${styles.treeItemLabel}`}>
         {label}
       </Typography>
     </CustomContentRoot>
@@ -124,28 +127,35 @@ const CustomTreeItem = (props: TreeItemProps) => (
   <TreeItem ContentComponent={CustomContent} {...props} />
 );
 
-export default function BarTreeView() {
+const TreeMockup = () => {
+  const repositories = useAppSelector(selectRepositories);
+  const dispatch = useAppDispatch();
+  React.useEffect(() => {
+    dispatch(fetchRepositoriesAsync())
+  }, [])
   return (
     <TreeView
       aria-label="icon expansion"
+      className={styles.MuiTreeViewRootCustom}
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
       sx={{ height: 240, flexGrow: 1, maxWidth: 400, position: 'relative' }}
     >
-      <CustomTreeItem nodeId="1" label="Applications">
-        <CustomTreeItem nodeId="2" label="Calendar" />
-        <CustomTreeItem nodeId="3" label="Chrome" />
-        <CustomTreeItem nodeId="4" label="Webstorm" />
-      </CustomTreeItem>
-      <CustomTreeItem nodeId="5" label="Documents">
-        <CustomTreeItem nodeId="10" label="OSS" />
-        <CustomTreeItem nodeId="6" label="MUI">
-          <CustomTreeItem nodeId="7" label="src">
-            <CustomTreeItem nodeId="8" label="index.js" />
-            <CustomTreeItem nodeId="9" label="tree-view.js" />
-          </CustomTreeItem>
-        </CustomTreeItem>
+      <CustomTreeItem nodeId='userTreeMockup' label='GitHub Server (api.github.com)'>
+        {repositories?.length > 0 && repositories?.map(repository => {
+          return (repository ? <CustomTreeItem nodeId={repository?.node_id} label={repository?.name}>
+            {repository && repository?.pullRequests && repository?.pullRequests?.length > 0 ? repository?.pullRequests?.map(pullRequest => {
+              return (<CustomTreeItem nodeId={pullRequest?.node_id} label={pullRequest?.title}>
+                {pullRequest && pullRequest?.files && pullRequest?.files?.length > 0 ? pullRequest?.files?.map(diffEntry => {
+                  return (<CustomTreeItem nodeId={diffEntry?.sha} label={diffEntry?.filename}></CustomTreeItem>)
+                }) : ''}
+              </CustomTreeItem>)
+            }) : ''}
+          </CustomTreeItem> : '')
+        })}
       </CustomTreeItem>
     </TreeView>
   );
 }
+
+export default TreeMockup;

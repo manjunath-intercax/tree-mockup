@@ -271,6 +271,7 @@
   watchers: number;
   master_branch?: string;
   starred_at?: string;
+  pullRequests?: Array<PullRequestSimple>
 }
 /**
  * License Simple
@@ -455,6 +456,7 @@ export interface PullRequestSimple {
   */
  draft?: boolean;
  [k: string]: unknown;
+ files?: Array<DiffEntry>
 }
 /**
 * Simple User

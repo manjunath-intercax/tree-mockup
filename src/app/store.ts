@@ -1,11 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
-import repoReducer from '../features/tree-mock-up/repoSlice';
+import treeMockupReducer from '../features/tree-mock-up/treeMockupSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
-    repo: repoReducer
+    treeMockup: treeMockupReducer
   },
 });
 

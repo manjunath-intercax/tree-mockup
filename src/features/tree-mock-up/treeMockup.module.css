@@ -1,0 +1,12 @@
+.treeItemLabel {
+    text-align: left;
+}
+
+.MuiTreeViewRootCustom {
+    display: flex;
+    height: auto !important;
+    padding: 30px;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 600px;
+}
