@@ -139,7 +139,7 @@ const TreeMockup = () => {
       className={styles.MuiTreeViewRootCustom}
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
-      sx={{ height: 240, flexGrow: 1, maxWidth: 400, position: 'relative' }}
+      sx={{ height: 240, flexGrow: 1, position: 'relative' }}
     >
       <CustomTreeItem nodeId='userTreeMockup' label={<div>
         <div className={styles.pill} style={{ backgroundColor: '#fff' }}></div>
