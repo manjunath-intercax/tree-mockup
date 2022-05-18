@@ -45,7 +45,9 @@ const TreeMockupChart = () => {
         boxSelectionEnabled: false,
         autounselectify: true,
         layout: {
-          name: 'dagre'
+          name: 'dagre',
+          fit: true,
+          padding: 40,
         },
         style: [
           {
@@ -204,9 +206,16 @@ const TreeMockupChart = () => {
           edges: edges
         }
       });
-      cy.fit()
 
-      cy.fit();
+      cy.viewport({
+        zoom: .7,
+        pan: {
+          x: 50,
+          y: 50
+        }
+      })      
+      cy.height()
+      cy.width()
       //NODE EVENTS
       cy.on("mouseover", "node", function (e) {
         e.target.addClass("hover");
@@ -229,8 +238,8 @@ const TreeMockupChart = () => {
     }
   }, [repositories]);
   return (
-    <div style={{ background: '#fff', width: '1000px', height: '1000px', display: 'flex' }}>
-      {repositories?.length > 0 && <div id="cytoscape-container" style={{ width: '1000px', height: '1000px'}} />}
+    <div style={{ background: '#fff', width: '100%', height: '100%', display: 'flex' }}>
+      {repositories?.length > 0 ? <div id="cytoscape-container" /> : ''}
     </div>
   );
 }
