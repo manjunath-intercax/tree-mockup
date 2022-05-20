@@ -15,24 +15,24 @@ const TreeMockupChart = () => {
 
       cytoscape.use(dagre)
       const nodes: Array<any> = [{
-        data: { id: 'rootNode' }
+        data: { id: 'rootNode', name: 'Users Repository' }
       }];
       const edges: Array<any> = [];
       repositories.forEach(repository => {
         nodes.push({
-          data: { id: repository?.node_id }
+          data: { id: repository?.node_id, name: repository?.name }
         })
         edges.push({ data: { source: 'rootNode', target: repository?.node_id } })
         if (repository?.pullRequests?.length) {
           repository.pullRequests.forEach(pullRequest => {
             nodes.push({
-              data: { id: pullRequest?.node_id }
+              data: { id: pullRequest?.node_id, name: pullRequest?.title }
             })
             edges.push({ data: { source: repository?.node_id, target: pullRequest?.node_id } })
             if (pullRequest?.files?.length) {
               pullRequest.files.forEach(fileEntry => {
                 nodes.push({
-                  data: { id: fileEntry?.sha }
+                  data: { id: fileEntry?.sha, name: fileEntry?.filename }
                 })
                 edges.push({ data: { source: pullRequest?.node_id, target: fileEntry?.sha } })
               })
@@ -53,11 +53,11 @@ const TreeMockupChart = () => {
           {
             selector: "label",
             css: {
-              label: "data(id)", //The text to display for an element’s label (demo).
+              label: "data(name)", //The text to display for an element’s label (demo).
               //source-label : The text to display for an edge’s source label.
               //target-label : The text to display for an edge’s target label.
 
-              color: "#9e9e9e", //The colour of the element’s label.
+              color: "#000", //The colour of the element’s label.
               //"text-opacity": "0.87",             //The opacity of the label text, including its outline.
               "font-family": "Nokia Pure Regular", //A comma-separated list of font names to use on the label text.
               "font-size": "10px", //The size of the label text.
@@ -213,7 +213,7 @@ const TreeMockupChart = () => {
           x: 50,
           y: 50
         }
-      })      
+      })
       cy.height()
       cy.width()
       //NODE EVENTS
