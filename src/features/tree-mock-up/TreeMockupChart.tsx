@@ -31,8 +31,9 @@ const TreeMockupChart = () => {
             edges.push({ data: { source: repository?.node_id, target: pullRequest?.node_id } })
             if (pullRequest?.files?.length) {
               pullRequest.files.forEach(fileEntry => {
+                let filename = fileEntry?.filename.split('/')[fileEntry?.filename.split('/').length - 1]
                 nodes.push({
-                  data: { id: fileEntry?.sha, name: fileEntry?.filename }
+                  data: { id: fileEntry?.sha, name: filename }
                 })
                 edges.push({ data: { source: pullRequest?.node_id, target: fileEntry?.sha } })
               })
