@@ -156,9 +156,10 @@ const TreeMockup = () => {
                 Pull Request:- {pullRequest?.title}
               </div>}>
                 {pullRequest && pullRequest?.files && pullRequest?.files?.length > 0 ? pullRequest?.files?.map(diffEntry => {
+                  let filename = diffEntry?.filename.split('/')
                   return (<CustomTreeItem nodeId={diffEntry?.sha} label={<div>
                     <div className={styles.pill} style={{ backgroundColor: generateRandomColor() }}></div>
-                    {diffEntry?.filename}
+                    {filename?.length > 0 && filename[filename?.length - 1]}
                   </div>}></CustomTreeItem>)
                 }) : ''}
               </CustomTreeItem>)
