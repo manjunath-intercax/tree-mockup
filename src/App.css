@@ -22,6 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 30px;
 }
 
 .App-link {
@@ -32,7 +33,18 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+#cytoscape-container {
+  overflow: auto;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background: white;
+  background-image: radial-gradient(#eee 1px, transparent 0);
+  background-size: 20px 20px;
 }

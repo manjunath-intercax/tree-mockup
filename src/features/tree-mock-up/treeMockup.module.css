@@ -1,0 +1,19 @@
+.treeItemLabel {
+    text-align: left;
+}
+
+.MuiTreeViewRootCustom {
+    display: flex;
+    height: auto !important;
+    padding: 30px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.pill {
+    display: inline-block;
+    margin: 0px 7px;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+}

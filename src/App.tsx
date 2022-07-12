@@ -1,15 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
-import BarTreeView from './Components/TreeMockup'
+import BarTreeView from './features/tree-mock-up/TreeMockup'
 import './App.css';
+import TreeMockupChart from './features/tree-mock-up/TreeMockupChart';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      <BarTreeView />
-      </header>
-    </div>
+    // <div className="App">
+    //   <header className="App-header">
+    //     <BarTreeView />
+    //   </header>
+    // </div>
+        <TreeMockupChart />
   );
 }
 
